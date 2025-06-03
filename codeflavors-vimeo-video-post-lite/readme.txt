@@ -2,9 +2,9 @@
 Contributors: codeflavors, constantin.boiangiu
 Tags: vimeo, video , video gallery, featured video, video post
 Requires at least: 5.2
-Tested up to: 6.6
+Tested up to: 6.8.1
 Requires PHP: 7.4
-Stable tag: 2.3.4.3
+Stable tag: 2.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,12 @@ For each video post created by the plugin, you can import the video image as the
 12. Vimeotheque create status report
 
 == Changelog ==
+= 2.3.5 =
+- Updated code formatting according to WP standards.
+
+= 2.3.4.4 =
+- Solved a bug that emitted errors when allowing permissions.
+
 = 2.3.4.3 =
 - Solved a bug that could allow SQL injection in certain special cases.
 

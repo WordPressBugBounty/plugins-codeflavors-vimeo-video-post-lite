@@ -245,9 +245,11 @@ class Admin{
 		$capabilities = $this->get_capability();
 		// admin always has access
 		$admin = get_role('administrator');
-		foreach ( $capabilities as $cap ) {
-			$admin->add_cap( $cap['capability'] );
-		}
+        if( $admin ) {
+            foreach ($capabilities as $cap) {
+                $admin->add_cap($cap['capability']);
+            }
+        }
 
 		$roles = $this->get_roles();
 		foreach( $roles as $role => $name ){
@@ -352,6 +354,7 @@ class Admin{
 			sprintf(
 				'%s <br/>%s',
 				sprintf(
+                    // translators: %s: plugin name
 					__( "It's great to see that you've been using %s plugin for a while now. Hopefully you're happy with it!", 'codeflavors-vimeo-video-post-lite' ),
 					sprintf( '<strong>%s</strong>', 'Vimeotheque' )
 				),
@@ -389,6 +392,7 @@ class Admin{
 		}
 
 		$policy_content = sprintf(
+            // translators: %s: Vimeo help page URL
 			__( 'By using the embed feature of this plugin you will be agreeing to Vimeo\'s privacy policy. More details can be found here: %s', 'codeflavors-vimeo-video-post-lite' ),
 			'https://vimeo.com/privacy'
 		);

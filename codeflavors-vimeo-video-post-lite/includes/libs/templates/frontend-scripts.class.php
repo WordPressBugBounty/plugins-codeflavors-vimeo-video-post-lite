@@ -15,18 +15,17 @@ class Frontend_Scripts {
 	/**
 	 * Constructor
 	 */
-	public function __construct(){
+	public function __construct() {
 
 		add_action(
 			'wp_enqueue_scripts',
-			[$this, 'enqueue_styles']
+			[ $this, 'enqueue_styles' ]
 		);
 
 		add_action(
 			'wp_enqueue_scripts',
-			[$this, 'enqueue_scripts']
+			[ $this, 'enqueue_scripts' ]
 		);
-
 	}
 
 	/**
@@ -34,9 +33,9 @@ class Frontend_Scripts {
 	 *
 	 * @return void
 	 */
-	public function enqueue_styles(){
+	public function enqueue_styles() {
 		$styles = $this->get_styles();
-		if( $styles ){
+		if ( $styles ) {
 			foreach ( $styles as $handle => $args ) {
 				wp_enqueue_style(
 					$handle,
@@ -54,7 +53,7 @@ class Frontend_Scripts {
 	 *
 	 * @return mixed|void
 	 */
-	private function get_styles(){
+	private function get_styles() {
 		/**
 		 * Allow style override.
 		 *
@@ -66,14 +65,13 @@ class Frontend_Scripts {
 			'vimeotheque\templates\enqueue_styles',
 			[
 				'vimeotheque-styles' => [
-					'src' => \Vimeotheque\Helper::get_url() . 'assets/front-end/css/vimeotheque.css',
-					'deps' => '',
+					'src'     => \Vimeotheque\Helper::get_url() . 'assets/front-end/css/vimeotheque.css',
+					'deps'    => '',
 					'version' => \Vimeotheque\Helper::get_plugin_version(),
-					'media' => 'all'
-				]
+					'media'   => 'all',
+				],
 			]
 		);
-
 	}
 
 	/**
@@ -81,20 +79,18 @@ class Frontend_Scripts {
 	 *
 	 * @return void
 	 */
-	public function enqueue_scripts(){
+	public function enqueue_scripts() {
 
-		if( \Vimeotheque\Helper::is_video() ){
-			if( current_theme_supports( 'vimeotheque-next-video-card' ) ){
+		if ( \Vimeotheque\Helper::is_video() ) {
+			if ( current_theme_supports( 'vimeotheque-next-video-card' ) ) {
 				wp_enqueue_script(
 					'vimeotheque-end-video-card',
 					\Vimeotheque\Helper::get_url() . 'assets/front-end/js/load-next-video.js',
-					['jquery','cvm-video-player'],
+					[ 'jquery', 'cvm-video-player' ],
 					\Vimeotheque\Helper::get_plugin_version(),
 					true
 				);
 			}
 		}
-
 	}
-
 }

@@ -4,7 +4,7 @@
  * Plugin URI: https://vimeotheque.com
  * Description: Vimeotheque imports public Vimeo videos as WordPress posts. It is a perfect fit for membership, portfolio, online courses or any type of video collection.
  * Author: CodeFlavors
- * Version: 2.3.4.3
+ * Version: 2.3.5
  * Author URI: https://codeflavors.com
  * Text Domain: codeflavors-vimeo-video-post-lite
  * Domain Path: /languages
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'VIMEOTHEQUE_FILE', __FILE__ );
 define( 'VIMEOTHEQUE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'VIMEOTHEQUE_URL', plugin_dir_url( __FILE__ ) );
-define( 'VIMEOTHEQUE_VERSION', '2.3.4.3' );
+define( 'VIMEOTHEQUE_VERSION', '2.3.5' );
 define( 'VIMEOTHEQUE_TEMPLATE_DEBUG_MODE', false );
 /**
  * Minimum WP version.
@@ -37,15 +37,15 @@ if ( ! version_compare( PHP_VERSION, VIMEOTHEQUE_PHP_COMPAT, '>=' ) ) {
 	add_action( 'admin_notices', 'vimeotheque_fail_php_version' );
 } elseif ( ! version_compare( get_bloginfo( 'version' ), VIMEOTHEQUE_WP_COMPAT, '>=' ) ) {
 	add_action( 'admin_notices', 'vimeotheque_fail_wp_version' );
-}else{
+} else {
 
-    // Start the timer:
-    do_action( 'qm/start', 'Vimeotheque Lite' );
+	// Start the timer:
+	do_action( 'qm/start', 'Vimeotheque Lite' );
 
-    require_once VIMEOTHEQUE_PATH . 'includes/libs/plugin.class.php';
+	require_once VIMEOTHEQUE_PATH . 'includes/libs/plugin.class.php';
 
-    // Stop the timer:
-    do_action( 'qm/stop', 'Vimeotheque Lite' );
+	// Stop the timer:
+	do_action( 'qm/stop', 'Vimeotheque Lite' );
 }
 
 /**
@@ -56,7 +56,7 @@ if ( ! version_compare( PHP_VERSION, VIMEOTHEQUE_PHP_COMPAT, '>=' ) ) {
  */
 function vimeotheque_fail_php_version() {
 	/* translators: %s: PHP version */
-	$message = sprintf(
+	$message      = sprintf(
 		esc_html__(
 			'Vimeotheque requires PHP version %s+, plugin is currently NOT RUNNING.',
 			'codeflavors-vimeo-video-post-lite'
@@ -75,7 +75,7 @@ function vimeotheque_fail_php_version() {
  */
 function vimeotheque_fail_wp_version() {
 	/* translators: %s: WordPress version */
-	$message = sprintf(
+	$message      = sprintf(
 		esc_html__(
 			'Vimeotheque requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT RUNNING.',
 			'codeflavors-vimeo-video-post-lite'
