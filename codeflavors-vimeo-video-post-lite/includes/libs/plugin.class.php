@@ -4,6 +4,7 @@ namespace Vimeotheque;
 
 use Vimeotheque\Admin\Admin;
 use Vimeotheque\Admin\Customizer\Customizer;
+use Vimeotheque\Admin\Rest_Actions;
 use Vimeotheque\Amp\Amp;
 use Vimeotheque\Blocks\Block_Abstract;
 use Vimeotheque\Blocks\Blocks_Factory;
@@ -248,7 +249,9 @@ class Plugin {
 			3
 		);
 
-		require VIMEOTHEQUE_PATH . 'includes/libs/series/Plugin.php';
+        add_action('after_setup_theme', function(){
+            require VIMEOTHEQUE_PATH . 'includes/libs/series/Plugin.php';
+        });
 	}
 
 	public function init() {
@@ -264,26 +267,13 @@ class Plugin {
 
 		new Widgets_Factory( $this );
 
-		$this->playlist_themes = new Themes(
-			new Theme(
-				VIMEOTHEQUE_PATH . 'themes/default/player.php',
-				__( 'Default', 'codeflavors-vimeo-video-post-lite' )
-			)
-		);
-
-		$this->playlist_themes->register_theme(
-			new Theme(
-				VIMEOTHEQUE_PATH . 'themes/simple/theme.php',
-				__( 'Simple', 'codeflavors-vimeo-video-post-lite' )
-			)
-		);
-
-		$this->playlist_themes->register_theme(
-			new Theme(
-				VIMEOTHEQUE_PATH . 'themes/listy/theme.php',
-				__( 'Listy', 'codeflavors-vimeo-video-post-lite' )
-			)
-		);
+        if( Helper::vimeotheque_is_pro_version_above('2.1.8') ){
+            add_action('init', function(){
+                $this->init_playlist_themes();
+            });
+        }else{
+            $this->init_playlist_themes();
+        }
 
 		// internalization
 		load_plugin_textdomain(
@@ -292,6 +282,29 @@ class Plugin {
 			basename( dirname( VIMEOTHEQUE_FILE ) ) . '/languages/'
 		);
 	}
+
+    private function init_playlist_themes(){
+        $this->playlist_themes = new Themes(
+            new Theme(
+                VIMEOTHEQUE_PATH . 'themes/default/player.php',
+                __( 'Default', 'codeflavors-vimeo-video-post-lite' )
+            )
+        );
+
+        $this->playlist_themes->register_theme(
+            new Theme(
+                VIMEOTHEQUE_PATH . 'themes/simple/theme.php',
+                __( 'Simple', 'codeflavors-vimeo-video-post-lite' )
+            )
+        );
+
+        $this->playlist_themes->register_theme(
+            new Theme(
+                VIMEOTHEQUE_PATH . 'themes/listy/theme.php',
+                __( 'Listy', 'codeflavors-vimeo-video-post-lite' )
+            )
+        );
+    }
 
 	/**
 	 * Register the autoloader
@@ -517,6 +530,8 @@ class Plugin {
 		if ( is_admin() || Helper::is_ajax() ) {
 			$this->admin = new Admin( $this->get_cpt() );
 		}
+
+        new Rest_Actions($this->get_cpt());
 	}
 
 	/**
